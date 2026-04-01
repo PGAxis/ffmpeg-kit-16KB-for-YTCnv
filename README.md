@@ -1,7 +1,7 @@
 # ffmpeg-kit-16KB for YTCnv
 
 ## Why this fork
-[explain: stripped-down build for YTCnv, Android-only, specific codec selection]
+Stripped-down build for YTCnv, Android-only, specific codec selection
 
 ## Requirements
 - Linux (build scripts are Linux-only)
@@ -11,11 +11,18 @@
 
 ## Build steps
 1. Set environment variables (ANDROID_SDK_ROOT, ANDROID_NDK_ROOT)
-2. Run ./android.sh (or ./build.sh)
+2. Run ./android.sh
 3. Find the AAR at prebuilt/.../ffmpeg-kit.aar
 
 ## What's included
-[list enabled codecs/libs: mp3lame, x264, opus, aac, vp9, h264, etc.]
+enabled codecs/libs:
+
+- mp3lame
+- x264
+- opus
+- aac
+- vp9
+- h264
 
 ## License
 
