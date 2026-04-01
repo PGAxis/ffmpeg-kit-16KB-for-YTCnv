@@ -510,37 +510,70 @@ fi
   --strip="${STRIP}" \
   --nm="${NM}" \
   --extra-libs="$(pkg-config --libs --static cpu-features)" \
+  \
+  --disable-everything \
   --disable-autodetect \
+  \
   --enable-cross-compile \
   --enable-pic \
   --enable-jni \
-  --enable-optimizations \
-  --enable-swscale \
-  ${BUILD_LIBRARY_OPTIONS} \
   --enable-pthreads \
-  --enable-v4l2-m2m \
-  --disable-outdev=fbdev \
-  --disable-indev=fbdev \
-  --disable-indev=v4l2 \
-  --disable-outdev=v4l2 \
-  --disable-indev=vfwcap \
-  --disable-outdev=vfw \
-  --disable-indev=dshow \
-  --disable-outdev=dshow \
-  --disable-indev=lavfi \
-  --disable-indev=oss \
-  --disable-outdev=oss \
-  ${SIZE_OPTIONS} \
-  --disable-xmm-clobber-test \
-  ${DEBUG_OPTIONS} \
-  --disable-neon-clobber-test \
-  --disable-programs \
+  --enable-small \
+  \
+  --enable-avcodec \
+  --enable-avformat \
+  --enable-avutil \
+  \
+  --enable-decoder=aac \
+  --enable-decoder=opus \
+  --enable-decoder=h264 \
+  --enable-decoder=mjpeg \
+  --enable-decoder=vp9 \
+  \
+  --enable-encoder=libmp3lame \
+  --enable-encoder=libx264 \
+  --enable-encoder=mjpeg \
+  --enable-decoder=png \
+  --enable-decoder=webp \
+  \
+  --enable-muxer=mp4 \
+  --enable-muxer=mp3 \
+  --enable-muxer=image2 \
+  --enable-demuxer=image2 \
+  --enable-demuxer=mov \
+  --enable-demuxer=mp4 \
+  --enable-demuxer=mp3 \
+  --enable-demuxer=aac \
+  --enable-demuxer=matroska \
+  --enable-demuxer=webm \
+  \
+  --enable-parser=opus \
+  --enable-parser=mp3 \
+  --enable-parser=aac \
+  --enable-parser=h264 \
+  --enable-parser=mjpeg \
+  \
+  --enable-protocol=file \
+  \
+  --enable-avfilter \
+  --enable-swscale \
+  --enable-swresample \
+  --enable-avdevice \
   --disable-postproc \
+  --enable-filter=anull \
+  --enable-filter=null \
+  --enable-filter=format \
+  --enable-filter=aformat \
+  --enable-filter=aresample \
+  --enable-filter=scale \
+  \
+  --disable-programs \
   --disable-doc \
   --disable-htmlpages \
   --disable-manpages \
   --disable-podpages \
   --disable-txtpages \
+  \
   --disable-sndio \
   --disable-schannel \
   --disable-securetransport \
@@ -554,12 +587,12 @@ fi
   --disable-audiotoolbox \
   --disable-appkit \
   --disable-alsa \
-  --disable-cuda \
-  --disable-cuvid \
-  --disable-nvenc \
-  --disable-vaapi \
-  --disable-vdpau \
-  ${CONFIGURE_POSTFIX} 1>>"${BASEDIR}"/build.log 2>&1
+  \
+  ${BUILD_LIBRARY_OPTIONS} \
+  ${SIZE_OPTIONS} \
+  ${DEBUG_OPTIONS} \
+  ${CONFIGURE_POSTFIX} \
+  1>>"${BASEDIR}"/build.log 2>&1
 
 if [[ $? -ne 0 ]]; then
   echo -e "failed\n\nSee build.log for details\nffmpeg 01"

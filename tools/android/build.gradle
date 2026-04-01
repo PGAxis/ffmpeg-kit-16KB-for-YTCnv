@@ -1,6 +1,6 @@
 plugins {
-    id "com.android.library"
-    id "com.vanniktech.maven.publish"
+  id "com.android.library"
+  id "com.vanniktech.maven.publish"
 }
 
 def argArtifactName = System.getenv('ARG_ARTIFACT_NAME') ?: 'ffmpeg-kit-main-16kb'
@@ -73,8 +73,8 @@ dependencies {
 }
 
 mavenPublishing {
-    publishToMavenCentral()
-    signAllPublications()
+    //publishToMavenCentral()
+    //signAllPublications()
 
     coordinates("io.github.jamaismagic.ffmpeg", "$argArtifactName", "$argVersionName")
 

@@ -28,7 +28,15 @@ echo -e "\nINFO: Using Android NDK v${DETECTED_NDK_VERSION} provided at ${ANDROI
 echo -e "INFO: Build options: $*\n" 1>>"${BASEDIR}"/build.log 2>&1
 
 # SET DEFAULT BUILD OPTIONS
-export GPL_ENABLED="no"
+export GPL_ENABLED="yes"
+enable_library "lame"
+enable_library "x264"
+enable_library "opus"
+disable_arch "x86"
+disable_arch "x86-64"
+disable_arch "arm-v7a"
+redownload_library "libiconv"
+reconf_library "libiconv"
 DISPLAY_HELP=""
 BUILD_FULL=""
 BUILD_TYPE_ID=""
@@ -46,104 +54,6 @@ for argument in "$@"; do
   fi
 done
 
-# PROCESS BUILD OPTIONS
-while [ ! $# -eq 0 ]; do
-
-  case $1 in
-  -h | --help)
-    DISPLAY_HELP="1"
-    ;;
-  -v | --version)
-    display_version
-    exit 0
-    ;;
-  --skip-*)
-    SKIP_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    skip_library "${SKIP_LIBRARY}"
-    ;;
-  --no-archive)
-    NO_ARCHIVE="1"
-    ;;
-  --no-output-redirection)
-    no_output_redirection
-    ;;
-  --no-workspace-cleanup-*)
-    NO_WORKSPACE_CLEANUP_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-[A-Za-z]*-[A-Za-z]*-//g')
-
-    no_workspace_cleanup_library "${NO_WORKSPACE_CLEANUP_LIBRARY}"
-    ;;
-  --no-link-time-optimization)
-    no_link_time_optimization
-    ;;
-  -d | --debug)
-    enable_debug
-    ;;
-  -s | --speed)
-    optimize_for_speed
-    ;;
-  -l | --lts) ;;
-  -f | --force)
-    export BUILD_FORCE="1"
-    ;;
-  --reconf-*)
-    CONF_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    reconf_library "${CONF_LIBRARY}"
-    ;;
-  --rebuild-*)
-    BUILD_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    rebuild_library "${BUILD_LIBRARY}"
-    ;;
-  --redownload-*)
-    DOWNLOAD_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    redownload_library "${DOWNLOAD_LIBRARY}"
-    ;;
-  --full)
-    BUILD_FULL="1"
-    ;;
-  --enable-gpl)
-    export GPL_ENABLED="yes"
-    ;;
-  --enable-custom-library-*)
-    CUSTOM_LIBRARY_OPTION_KEY=$(echo $1 | sed -e 's/^--enable-custom-//g;s/=.*$//g')
-    CUSTOM_LIBRARY_OPTION_VALUE=$(echo $1 | sed -e 's/^--enable-custom-.*=//g')
-
-    echo -e "INFO: Custom library options detected: ${CUSTOM_LIBRARY_OPTION_KEY} ${CUSTOM_LIBRARY_OPTION_VALUE}\n" 1>>"${BASEDIR}"/build.log 2>&1
-
-    generate_custom_library_environment_variables "${CUSTOM_LIBRARY_OPTION_KEY}" "${CUSTOM_LIBRARY_OPTION_VALUE}"
-    ;;
-  --enable-*)
-    ENABLED_LIBRARY=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    enable_library "${ENABLED_LIBRARY}"
-    ;;
-  --disable-lib-*)
-    DISABLED_LIB=$(echo $1 | sed -e 's/^--[A-Za-z]*-[A-Za-z]*-//g')
-
-    disabled_libraries+=("${DISABLED_LIB}")
-    ;;
-  --disable-*)
-    DISABLED_ARCH=$(echo $1 | sed -e 's/^--[A-Za-z]*-//g')
-
-    disable_arch "${DISABLED_ARCH}"
-    ;;
-  --api-level=*)
-    API_LEVEL=$(echo $1 | sed -e 's/^--[A-Za-z]*-[A-Za-z]*=//g')
-
-    export API=${API_LEVEL}
-    ;;
-  --no-ffmpeg-kit-protocols)
-    export NO_FFMPEG_KIT_PROTOCOLS="1"
-    ;;
-  *)
-    print_unknown_option "$1"
-    ;;
-  esac
-  shift
-done
 
 if [[ -z ${BUILD_VERSION} ]]; then
   echo -e "\n(*) error: Can not run git commands in this folder. See build.log.\n"
@@ -370,7 +280,7 @@ if [[ -n ${ANDROID_ARCHITECTURES} ]]; then
 
     # BUILD ANDROID ARCHIVE
     rm -f "${BASEDIR}"/android/ffmpeg-kit-android-lib/build/outputs/aar/ffmpeg-kit-release.aar 1>>"${BASEDIR}"/build.log 2>&1
-    ./gradlew ffmpeg-kit-android-lib:clean ffmpeg-kit-android-lib:assembleRelease ffmpeg-kit-android-lib:testReleaseUnitTest publishToMavenCentral --info --stacktrace 1>>"${BASEDIR}"/build.log 2>&1
+    ./gradlew ffmpeg-kit-android-lib:clean ffmpeg-kit-android-lib:assembleRelease ffmpeg-kit-android-lib:testReleaseUnitTest --info --stacktrace 1>>"${BASEDIR}"/build.log 2>&1
     if [ $? -ne 0 ]; then
       echo -e "failed\n"
       exit 1
