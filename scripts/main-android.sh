@@ -214,6 +214,7 @@ while [ ${#enabled_library_list[@]} -gt $completed ]; do
           exit 1
         else
           echo -e "failed\n\nSee build.log for details\n"
+          cat "${BASEDIR}"/build.log
           exit 1
         fi
       else
