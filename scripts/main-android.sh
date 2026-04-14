@@ -29,7 +29,7 @@ echo -e "\nBuilding ${ARCH} platform on API level ${API}\n"
 echo -e "\nINFO: Starting new build for ${ARCH} on API level ${API} at $(date)\n" 1>>"${BASEDIR}"/build.log 2>&1
 
 # SET BASE INSTALLATION DIRECTORY FOR THIS ARCHITECTURE
-export LIB_INSTALL_BASE="ffmpeg/prebuilt/$(get_build_directory)"
+export LIB_INSTALL_BASE="/ffmpeg/prebuilt/$(get_build_directory)"
 
 # CREATE PACKAGE CONFIG DIRECTORY FOR THIS ARCHITECTURE
 PKG_CONFIG_DIRECTORY="${LIB_INSTALL_BASE}/pkgconfig"
