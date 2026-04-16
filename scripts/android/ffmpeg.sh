@@ -492,11 +492,11 @@ if [[ "${CONFIGURE_POSTFIX}" == *"--enable-sdl2"* ]] && [[ -f "${BASEDIR}/src/ff
 fi
 
 ###################################################################
-#--prefix="${FFMPEG_LIBRARY_PATH}" \
 
 ./configure \
   --cross-prefix="${HOST}-" \
   --sysroot="${ANDROID_SYSROOT}" \
+  --prefix="${FFMPEG_LIBRARY_PATH}" \
   --pkg-config="${HOST_PKG_CONFIG_PATH}" \
   --enable-version3 \
   --arch="${TARGET_ARCH}" \
