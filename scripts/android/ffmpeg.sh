@@ -492,6 +492,7 @@ if [[ "${CONFIGURE_POSTFIX}" == *"--enable-sdl2"* ]] && [[ -f "${BASEDIR}/src/ff
 fi
 
 ###################################################################
+LDFLAGS+="-Wl,--build-id=0xdeadbeef"
 
 ./configure \
   --cross-prefix="${HOST}-" \
@@ -510,7 +511,7 @@ fi
   --strip="${STRIP}" \
   --nm="${NM}" \
   --extra-libs="$(pkg-config --libs --static cpu-features)" \
-  --extra-ldflags="-Wl,--build-id=none" \
+  --extra-ldflags="-Wl,--build-id=0xdeadbeef" \
   \
   --disable-everything \
   --disable-autodetect \
