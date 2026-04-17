@@ -61,6 +61,7 @@ LOCAL_SRC_FILES := ffmpegkit_abidetect.c
 LOCAL_CFLAGS := -Wall -Wextra -Werror -Wno-unused-parameter -DFFMPEG_KIT_${MY_ARCH_FLAGS}
 LOCAL_C_INCLUDES := $(FFMPEG_INCLUDES)
 LOCAL_LDLIBS := -llog -lz -landroid
+LOCAL_LDFLAGS := -Wl,--build-id=none
 LOCAL_STATIC_LIBRARIES := cpu-features
 LOCAL_ARM_NEON := ${MY_ARM_NEON}
 include $(BUILD_SHARED_LIBRARY)
@@ -77,6 +78,7 @@ endif
 
 MY_CFLAGS := -Wall -Werror -Wno-unused-parameter -Wno-switch -Wno-sign-compare
 MY_LDLIBS := -llog -lz -landroid
+MY_LDFLAGS := -Wl,--build-id=none
 
 MY_BUILD_GENERIC_FFMPEG_KIT := true
 
@@ -88,6 +90,7 @@ ifeq ($(MY_ARMV7_NEON), true)
     LOCAL_SRC_FILES := $(MY_SRC_FILES)
     LOCAL_CFLAGS := $(MY_CFLAGS)
     LOCAL_LDLIBS := $(MY_LDLIBS)
+		LOCAL_LDFLAGS := $(MY_LDFLAGS)
     LOCAL_SHARED_LIBRARIES := libavcodec_neon libavfilter_neon libswscale_neon libavformat_neon libavutil_neon libswresample_neon libavdevice_neon
     # Note: In NDK r27+, when APP_STL := c++_shared is set in Application.mk,
     # the NDK automatically handles c++_shared and includes it in packaging.
@@ -110,6 +113,7 @@ ifeq ($(MY_BUILD_GENERIC_FFMPEG_KIT), true)
     LOCAL_SRC_FILES := $(MY_SRC_FILES)
     LOCAL_CFLAGS := $(MY_CFLAGS)
     LOCAL_LDLIBS := $(MY_LDLIBS)
+		LOCAL_LDFLAGS := $(MY_LDFLAGS)
     LOCAL_SHARED_LIBRARIES := libavfilter libavformat libavcodec libavutil libswresample libavdevice libswscale
     # Note: In NDK r27+, when APP_STL := c++_shared is set in Application.mk,
     # the NDK automatically handles c++_shared and includes it in packaging.
