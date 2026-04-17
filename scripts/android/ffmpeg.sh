@@ -492,7 +492,11 @@ if [[ "${CONFIGURE_POSTFIX}" == *"--enable-sdl2"* ]] && [[ -f "${BASEDIR}/src/ff
 fi
 
 ###################################################################
-export LDFLAGS+="-Wl,--build-id=0xdeadbeef"
+export LDFLAGS="$LDFLAGS -Wl,--build-id=none"
+export CFLAGS="$CFLAGS -Wl,--build-id=none"
+export CXXFLAGS="$CXXFLAGS -Wl,--build-id=none"
+export CMAKE_SHARED_LINKER_FLAGS="-Wl,--build-id=none"
+export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
 
 ./configure \
   --cross-prefix="${HOST}-" \
@@ -511,7 +515,7 @@ export LDFLAGS+="-Wl,--build-id=0xdeadbeef"
   --strip="${STRIP}" \
   --nm="${NM}" \
   --extra-libs="$(pkg-config --libs --static cpu-features)" \
-  --extra-ldflags="-Wl,--build-id=0xdeadbeef" \
+  --extra-ldflags="-Wl,--build-id=none" \
   \
   --disable-everything \
   --disable-autodetect \
