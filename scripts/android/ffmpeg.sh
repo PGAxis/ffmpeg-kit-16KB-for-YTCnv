@@ -600,6 +600,12 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   ${CONFIGURE_POSTFIX} \
   1>>"${BASEDIR}"/build.log 2>&1
 
+sed -i \
+  -e 's|--prefix=[^ "]*|--prefix=BUILD|g' \
+  -e 's|--sysroot=[^ "]*|--sysroot=NDK_SYSROOT|g' \
+  -e 's|-L[^ "]*cpu-features[^ "]*|-L/cpu-features/lib|g' \
+  config.h ffbuild/config.sh
+
 if [[ $? -ne 0 ]]; then
   echo -e "failed\n\nSee build.log for details\nffmpeg 01"
   exit 1
