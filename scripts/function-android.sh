@@ -76,7 +76,7 @@ build_application_mk() {
     local APP_STL="none"
   fi
 
-  local BUILD_DATE="-DFFMPEG_KIT_BUILD_DATE=$(date +%Y%m%d 2>>"${BASEDIR}"/build.log)"
+  local BUILD_DATE="-DFFMPEG_KIT_BUILD_DATE=20250419"
 
   rm -f "${BASEDIR}/android/jni/Application.mk"
 
