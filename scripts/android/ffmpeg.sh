@@ -502,7 +502,6 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --cross-prefix="${HOST}-" \
   --sysroot="${ANDROID_SYSROOT}" \
   --prefix="${FFMPEG_LIBRARY_PATH}" \
-  --datadir=/data/ffmpeg \
   --pkg-config="${HOST_PKG_CONFIG_PATH}" \
   --enable-version3 \
   --arch="${TARGET_ARCH}" \
