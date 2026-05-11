@@ -502,6 +502,7 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --cross-prefix="${HOST}-" \
   --sysroot="${ANDROID_SYSROOT}" \
   --prefix="${FFMPEG_LIBRARY_PATH}" \
+  --datadir=/data/ffmpeg \
   --pkg-config="${HOST_PKG_CONFIG_PATH}" \
   --enable-version3 \
   --arch="${TARGET_ARCH}" \
@@ -607,6 +608,9 @@ sed -i \
   -e 's|--sysroot=[^ "]*|--sysroot=NDK_SYSROOT|g' \
   -e 's|-L[^ "]*cpu-features[^ "]*|-L/cpu-features/lib|g' \
   config.h ffbuild/config.sh
+
+find . -name "config.h" -exec sed -i \
+  's|FFMPEG_DATADIR "[^"]*"|FFMPEG_DATADIR "/data/ffmpeg"|g' {} +
 
 if [[ $? -ne 0 ]]; then
   echo -e "failed\n\nSee build.log for details\nffmpeg 01"
