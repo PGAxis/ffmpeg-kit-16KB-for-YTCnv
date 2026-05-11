@@ -536,6 +536,7 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --enable-decoder=mjpeg \
   --enable-decoder=vp9 \
   \
+  --enable-encoder=aac \
   --enable-encoder=libmp3lame \
   --enable-encoder=libx264 \
   --enable-encoder=mjpeg \
@@ -543,6 +544,7 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --enable-decoder=webp \
   \
   --enable-muxer=mp4 \
+  --enable-muxer=mov \
   --enable-muxer=mp3 \
   --enable-muxer=image2 \
   --enable-demuxer=image2 \
