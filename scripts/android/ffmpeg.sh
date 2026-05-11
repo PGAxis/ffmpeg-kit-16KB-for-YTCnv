@@ -609,7 +609,9 @@ sed -i \
   config.h ffbuild/config.sh
 
 find . -name "config.h" -exec sed -i \
-  's|FFMPEG_DATADIR "[^"]*"|FFMPEG_DATADIR "/data/ffmpeg"|g' {} +
+  -e 's|FFMPEG_DATADIR "[^"]*"|FFMPEG_DATADIR "/data/ffmpeg"|g' \
+  -e 's|AVCONV_DATADIR "[^"]*"|AVCONV_DATADIR "/data/ffmpeg"|g' \
+  {} +
 
 if [[ $? -ne 0 ]]; then
   echo -e "failed\n\nSee build.log for details\nffmpeg 01"
