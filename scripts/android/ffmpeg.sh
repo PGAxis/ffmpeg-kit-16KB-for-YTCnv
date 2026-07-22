@@ -514,7 +514,7 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --ranlib="${RANLIB}" \
   --strip="${STRIP}" \
   --nm="${NM}" \
-  --extra-libs="$(pkg-config --libs --static cpu-features)" \
+  --extra-libs="$(pkg-config --libs --static cpu-features | xargs)" \
   --extra-ldflags="-Wl,--build-id=none" \
   \
   --disable-everything \
