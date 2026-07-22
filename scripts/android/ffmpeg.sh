@@ -524,7 +524,6 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --enable-pic \
   --enable-jni \
   --enable-pthreads \
-  --enable-small \
   \
   --enable-avcodec \
   --enable-avformat \
