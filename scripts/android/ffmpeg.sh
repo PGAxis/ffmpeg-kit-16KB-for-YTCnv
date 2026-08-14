@@ -545,6 +545,8 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --enable-muxer=mp4 \
   --enable-muxer=mov \
   --enable-muxer=mp3 \
+  --enable-muxer=opus \
+  --enable-muxer=webm \
   --enable-muxer=image2 \
   --enable-demuxer=image2 \
   --enable-demuxer=mov \
