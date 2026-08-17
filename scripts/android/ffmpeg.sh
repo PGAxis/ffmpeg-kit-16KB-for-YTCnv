@@ -563,6 +563,7 @@ export CMAKE_EXE_LINKER_FLAGS="-Wl,--build-id=none"
   --enable-parser=mjpeg \
   \
   --enable-protocol=file \
+  --enable-protocol=saf \
   \
   --enable-avfilter \
   --enable-swscale \
